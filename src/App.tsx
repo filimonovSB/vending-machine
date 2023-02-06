@@ -3,6 +3,9 @@ import styled from 'styled-components'
 
 import Products from './components/products/Products'
 import FlexWrapper from './components/UI/FlexWrapper'
+import Box from './components/UI/Box'
+import ProductsButtons from './components/products-buttons/ProductsButtons'
+import Button from './components/UI/Button'
 
  
 
@@ -27,7 +30,20 @@ function App() {
       <Container  >
         <FlexWrapper>
           <Products products={products}/>
+          <PanelControls>
+            <Box mb={30} mt={20} >
+              <h3>Введите купюру</h3>
+              <input type="text" />
+            </Box>
+            <ProductsButtons products={products}/>
+            <Box mb={30} mt={30}>
+              <h3>сдача</h3>
+              <input type="text" />
+              <Button padding={5} bg="orange">Получить сдачу</Button>
+            </Box>
+          </PanelControls>
         </FlexWrapper>
+        
       </Container>
     </div>
   )
@@ -43,4 +59,10 @@ export interface product{
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
+`
+const PanelControls = styled.div`
+  width:450px;
+  background-color: #D9D9D9;
+  padding:15px;
+
 `

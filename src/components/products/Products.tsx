@@ -31,5 +31,5 @@ const ProductsStyled = styled.div`
   padding: 15px;
   border: 10px solid #000000;
   background-color: white;
-  height: 80vh;
+  height: 90vh;
 `

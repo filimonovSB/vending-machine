@@ -32,8 +32,9 @@ const Product:FC<product> = ({id,name, price, amount}) => {
     return (
         <StyledProduct>
         <img src={imagesProducts.get(id)} alt="" />
-        <Price>{price}</Price>
+        {/* <Price>{price}</Price> */}
         <div className="">{id}</div>
+        <Amount  >{amount}</Amount>
         </StyledProduct>
     )
   else
@@ -53,6 +54,10 @@ const StyledProduct = styled.div`
     margin:5px;
     text-align:center;
 `
-const Price = styled.div`
-    font-size: 36px;
+const Amount = styled.div`
+    font-size:30px;
+    color:red;
 `
+// const Price = styled.div`
+//     font-size: 30px;
+// `
