@@ -1,5 +1,4 @@
-import React, { FC, MouseEventHandler, PropsWithChildren } from 'react'
-import styled from 'styled-components'
+import React, { FC, MouseEventHandler, PropsWithChildren, useState } from 'react'
 
 interface ButtonProps extends PropsWithChildren{
     color?:string,
@@ -15,25 +14,31 @@ interface ButtonProps extends PropsWithChildren{
 
 const Button:FC<ButtonProps> = (
     {children, color='white', padding=0, bd='1px solid black', br='0', bg='white', w=100,h=50, fz=15, onClick}) => {
+    const [isHover, setIsHover] = useState(false);
 
-    const StyledButton=styled.button`
-        width:${w}px;
-        height:${h}px;
-        color:${color}px;
-        padding:${padding}px;
-        border:${bd};
-        border-radius:${br}%;
-        background-color:${bg};
-        font-size:${fz}px;
-        &:hover{
-            background-color:#FF6746;
-        }
-        &:active{
-            background-color:#FE1E00;
-        }
-    `
+    const handleMouseEnter = () => {
+      setIsHover(true);
+   };
+
+   const handleMouseLeave = () => {
+      setIsHover(false);
+   };
   return (
-    <StyledButton onClick={onClick}>{children}</StyledButton>
+    <button
+    onClick={onClick}
+    onMouseEnter={handleMouseEnter}
+    onMouseLeave={handleMouseLeave}
+    style={{
+        width:`${w}px`,
+        height:`${h}px`,
+        color:`${color}px`,
+        padding:`${padding}px`,
+        border:`${bd}`,
+        borderRadius:`${br}%`,
+        fontSize:`${fz}px`,
+        backgroundColor: isHover ? '#FF6746' : `${bg}`,
+    }}
+    >{children}</button>
   )
 
 }
