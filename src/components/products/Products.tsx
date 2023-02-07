@@ -17,7 +17,7 @@ const Products:FC<ProductsProps> = ({products}) => {
   return (
     <ProductsStyled>
       {products.map(product=>
-        <Product id={product.id} name={product.name} price={product.price} amount={product.amount}/>
+        <Product id={product.id} name={product.name} price={product.price} amount={product.amount} key={product.name}/>
       )}
     </ProductsStyled>
   )

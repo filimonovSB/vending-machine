@@ -32,7 +32,7 @@ const Product:FC<product> = ({id,name, price, amount}) => {
     return (
         <StyledProduct>
         <img src={imagesProducts.get(id)} alt="" />
-        {/* <Price>{price}</Price> */}
+        <Price>Цена:{price}</Price>
         <div className="">{id}</div>
         <Amount  >{amount}</Amount>
         </StyledProduct>
@@ -58,6 +58,6 @@ const Amount = styled.div`
     font-size:30px;
     color:red;
 `
-// const Price = styled.div`
-//     font-size: 30px;
-// `
+const Price = styled.div`
+    font-size: 30px;
+`

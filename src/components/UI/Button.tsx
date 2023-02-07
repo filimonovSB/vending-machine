@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren } from 'react'
+import React, { FC, MouseEventHandler, PropsWithChildren } from 'react'
 import styled from 'styled-components'
 
 interface ButtonProps extends PropsWithChildren{
@@ -10,10 +10,11 @@ interface ButtonProps extends PropsWithChildren{
     w?:number,
     h?:number,
     fz?:number,
+    onClick?: MouseEventHandler,
 }
 
 const Button:FC<ButtonProps> = (
-    {children, color='white', padding=0, bd='1px solid black', br='0', bg='white', w=100,h=50, fz=15}) => {
+    {children, color='white', padding=0, bd='1px solid black', br='0', bg='white', w=100,h=50, fz=15, onClick}) => {
 
     const StyledButton=styled.button`
         width:${w}px;
@@ -32,7 +33,7 @@ const Button:FC<ButtonProps> = (
         }
     `
   return (
-    <StyledButton>{children}</StyledButton>
+    <StyledButton onClick={onClick}>{children}</StyledButton>
   )
 
 }

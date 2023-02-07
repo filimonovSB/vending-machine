@@ -10,7 +10,9 @@ import Button from './components/UI/Button'
  
 
 function App() {
-
+  const [money,setMouney]= useState(0)
+  const [moneyInput, setMoneyInput] = useState('')
+  const [change,setChange] = useState(0)
   const [products, setProducts] = useState ([
 
     {id:1, name:'coca-cola', price:100, amount:5},
@@ -25,6 +27,30 @@ function App() {
 
   ])
 
+  const handleInputMoney = () =>{
+    setMouney(Number(moneyInput))
+    setMoneyInput('')
+  }
+  const handleChangeValue: React.ChangeEventHandler<HTMLInputElement> = (e): void => {
+    setMoneyInput(e.target.value)
+  }
+  const handleByeProduct = (id:number): void => {
+    setProducts(products.map(product=>{
+      if (product.id==id && product.amount>0 && money >= product.price){
+        setMouney(money-product.price)
+        return {...product, amount:product.amount-1}
+      }
+      else
+        return product
+    }))
+  }
+  const handleChange=()=>{
+    setMouney(0)
+    setChange(money)
+    
+  }
+
+
   return (
     <div className="App">
       <Container  >
@@ -33,13 +59,15 @@ function App() {
           <PanelControls>
             <Box mb={30} mt={20} >
               <h3>Введите купюру</h3>
-              <input type="text" />
+              <input type="text" value={moneyInput} onChange={handleChangeValue} />
+              <button onClick={handleInputMoney}>Ок</button>
+              <h4>Вы ввели сумму: {money}</h4>
             </Box>
-            <ProductsButtons products={products}/>
+            <ProductsButtons products={products} handleByeProduct={handleByeProduct}/>
             <Box mb={30} mt={30}>
               <h3>сдача</h3>
-              <input type="text" />
-              <Button padding={5} bg="orange">Получить сдачу</Button>
+              <input type="text" value={change}/>
+              <Button padding={5} bg="orange" onClick={handleChange}>Получить сдачу</Button>
             </Box>
           </PanelControls>
         </FlexWrapper>
