@@ -32,23 +32,29 @@ const Box:FC<IBoxProps> = ({
 
   }) => {
 
-  const StyledBox = styled.div`
-    margin: ${m}px;
-    margin-top: ${mt}px;
-    margin-right: ${mr}px;
-    margin-bottom: ${mb}px;
-    margin-left: ${ml}px;
-    padding: ${p}px;
-    padding-top: ${pt}px;
-    padding-right: ${pr}px;
-    padding-bottom: ${pb}px;
-    padding-left: ${pl}px;
-    width: ${w}px;
-  `
+ 
   return (
-  <StyledBox>{children}</StyledBox>
+    <div
+    style={{
+      margin: `${m}px`,
+      marginTop: `${mt}px`,
+      marginRight: `${mr}px`,
+      marginBottom: `${mb}px`,
+      marginLeft: `${ml}px`,
+      padding: `${p}px`,
+      paddingTop: `${pt}px`,
+      paddingRight: `${pr}px`,
+      paddingBottom: `${pb}px`,
+      paddingLeft: `${pl}px`,
+      width:`${w}`,
+    }}
+  >
+    {children}
+  </div>
   )
 }
+
+ 
 
 export default Box
  

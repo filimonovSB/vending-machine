@@ -11,10 +11,9 @@ import Button from './components/UI/Button'
 
 function App() {
   const [money,setMouney]= useState(0)
-  const [moneyInput, setMoneyInput] = useState('')
+  const [moneyInput, setMoneyInput] = useState<string>()
   const [change,setChange] = useState(0)
   const [products, setProducts] = useState ([
-
     {id:1, name:'coca-cola', price:100, amount:5},
     {id:2, name:'bounty', price:90, amount:15},
     {id:3, name:'water', price:75, amount:10},
@@ -24,14 +23,13 @@ function App() {
     {id:7, name:'спрайт', price:75, amount:10},
     {id:8, name:'ред-бул', price:75, amount:10},
     {id:9, name:'зеленый чай', price:75, amount:10},
-
   ])
 
   const handleInputMoney = () =>{
-    setMouney(Number(moneyInput))
+    setMouney(Number(moneyInput)+money)
     setMoneyInput('')
   }
-  const handleChangeValue: React.ChangeEventHandler<HTMLInputElement> = (e): void => {
+  const handleChangeValue = (e: React.ChangeEvent <HTMLInputElement>) => {
     setMoneyInput(e.target.value)
   }
   const handleByeProduct = (id:number): void => {
@@ -47,9 +45,7 @@ function App() {
   const handleChange=()=>{
     setMouney(0)
     setChange(money)
-    
   }
-
 
   return (
     <div className="App">
@@ -60,13 +56,13 @@ function App() {
             <Box mb={30} mt={20} >
               <h3>Введите купюру</h3>
               <input type="text" value={moneyInput} onChange={handleChangeValue} />
-              <button onClick={handleInputMoney}>Ок</button>
+              <Button onClick={handleInputMoney} w={100} h={40} bg="orange" padding={5}>Ок</Button>
               <h4>Вы ввели сумму: {money}</h4>
             </Box>
             <ProductsButtons products={products} handleByeProduct={handleByeProduct}/>
             <Box mb={30} mt={30}>
               <h3>сдача</h3>
-              <input type="text" value={change}/>
+              <input type="text" value={change} disabled/>
               <Button padding={5} bg="orange" onClick={handleChange}>Получить сдачу</Button>
             </Box>
           </PanelControls>
@@ -78,6 +74,7 @@ function App() {
 }
 
 export default App
+
 export interface product{
   id: number,
   name: string,

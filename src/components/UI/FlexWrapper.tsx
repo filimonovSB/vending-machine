@@ -1,6 +1,5 @@
 import React, { FC, PropsWithChildren } from 'react'
-import styled from 'styled-components'
-
+ 
 interface IFlexProps extends PropsWithChildren{
     w?:string,
     jc?:string,
@@ -8,16 +7,18 @@ interface IFlexProps extends PropsWithChildren{
     fw?:string,
 }
 
-const FlexWrapper:FC<IFlexProps> = ({children, w='100%', jc='stretch', fw='nowrap', ai='normal'}) => {
-  const StyledFlexWrapper = styled.div<IFlexProps>`
-    display: flex;
-    width:${w};
-    justify-content:${jc};
-    align-items:${ai};
-    flex-wrap:${fw};
-`
+const FlexWrapper:FC<IFlexProps> = ({children, w='100%', jc='stretch', fw , ai='normal'}) => {
+ 
   return (
-    <StyledFlexWrapper>{children}</StyledFlexWrapper>
+    <div style={{
+      display: 'flex',
+      width:`${w}`,
+      justifyContent:`${jc}`,
+      alignItems:`${ai}`,
+      flexWrap:'nowrap' || fw,
+    }}>
+      {children}
+    </div>
   )
 }
 
