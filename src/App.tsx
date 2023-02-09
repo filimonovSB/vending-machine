@@ -1,16 +1,18 @@
-import React, { useState,FC } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import Products from './components/products/Products'
 import FlexWrapper from './components/UI/FlexWrapper'
-import Wallet  from './components/wallet/Wallet'
-import { IMoney } from './data/data'
-import PanelControls from './components/panel-controls/PanelControls'
+import Box from './components/UI/Box'
+import ProductsButtons from './components/products-buttons/ProductsButtons'
+import Button from './components/UI/Button'
 
-const App:FC = () => {
-  const [depositedMoney,setDepositedMoney]= useState(0)
-  const [currentBanknoteChange,setCurrentBanknoteChange] =useState<IMoney>({id:0, cost:0})
-  const [changeBanknotes,setChangeBanknotes]=useState <Array<IMoney>>([ ])
+ 
+
+function App() {
+  const [money,setMouney]= useState(0)
+  const [moneyInput, setMoneyInput] = useState<string>()
+  const [change,setChange] = useState(0)
   const [products, setProducts] = useState ([
     {id:1, name:'coca-cola', price:100, amount:5},
     {id:2, name:'bounty', price:90, amount:15},
@@ -23,26 +25,26 @@ const App:FC = () => {
     {id:9, name:'зеленый чай', price:75, amount:10},
   ])
 
-  const byeProductHandler = (id:number): void => {
+  const handleInputMoney = () =>{
+    setMouney(Number(moneyInput)+money)
+    setMoneyInput('')
+  }
+  const handleChangeValue = (e: React.ChangeEvent <HTMLInputElement>) => {
+    setMoneyInput(e.target.value)
+  }
+  const handleByeProduct = (id:number): void => {
     setProducts(products.map(product=>{
-      if (product.id==id && product.amount>0 && depositedMoney >= product.price){
-        setDepositedMoney(depositedMoney-product.price)
+      if (product.id==id && product.amount>0 && money >= product.price){
+        setMouney(money-product.price)
         return {...product, amount:product.amount-1}
       }
       else
         return product
     }))
   }
-  const setCurrentBanknoteHandler = (money:IMoney):void => {
-    setCurrentBanknoteChange(money)
-  }
-
-  const deleteBanknote = ()  => {
-    setChangeBanknotes(changeBanknotes.filter(m=> m.id!=currentBanknoteChange.id))
-  }
-
-  const dragStartChangeHandler=(e: React.DragEvent<HTMLDivElement>, money:IMoney): void => {
-    setCurrentBanknoteChange(money)
+  const handleChange=()=>{
+    setMouney(0)
+    setChange(money)
   }
 
   return (
@@ -50,20 +52,22 @@ const App:FC = () => {
       <Container  >
         <FlexWrapper>
           <Products products={products}/>
-          <PanelControls
-            setChangeBanknotes={setChangeBanknotes}
-            setDepositedMoney={setDepositedMoney}
-            depositedMoney={depositedMoney}
-            currentBanknoteChange={currentBanknoteChange}
-            products={products}
-            byeProductHandler={byeProductHandler}
-            changeBanknotes={changeBanknotes}
-            dragStartChangeHandler={dragStartChangeHandler}
-          />
-          <Wallet
-            handleSetCurrentMoney={setCurrentBanknoteHandler} deleteCupur={deleteBanknote}
-            currentMoneyChange={currentBanknoteChange} />
+          <PanelControls>
+            <Box mb={30} mt={20} >
+              <h3>Введите купюру</h3>
+              <input type="text" value={moneyInput} onChange={handleChangeValue} />
+              <Button onClick={handleInputMoney} w={100} h={40} bg="orange" padding={5}>Ок</Button>
+              <h4>Вы ввели сумму: {money}</h4>
+            </Box>
+            <ProductsButtons products={products} handleByeProduct={handleByeProduct}/>
+            <Box mb={30} mt={30}>
+              <h3>сдача</h3>
+              <input type="text" value={change} disabled/>
+              <Button padding={5} bg="orange" onClick={handleChange}>Получить сдачу</Button>
+            </Box>
+          </PanelControls>
         </FlexWrapper>
+        
       </Container>
     </div>
   )
@@ -71,8 +75,19 @@ const App:FC = () => {
 
 export default App
 
+export interface product{
+  id: number,
+  name: string,
+  price: number,
+  amount: number,
+}
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  background-color:white;
+`
+const PanelControls = styled.div`
+  width:450px;
+  background-color: #D9D9D9;
+  padding:15px;
+
 `

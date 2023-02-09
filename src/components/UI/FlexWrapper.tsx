@@ -7,15 +7,15 @@ interface IFlexProps extends PropsWithChildren{
     fw?:string,
 }
 
-const FlexWrapper:FC<IFlexProps> = ({children, w='100%', jc='stretch', fw='nowrap' , ai='normal'}) => {
+const FlexWrapper:FC<IFlexProps> = ({children, w='100%', jc='stretch', fw , ai='normal'}) => {
  
   return (
     <div style={{
       display: 'flex',
-      flexWrap: `${ fw=='nowrap' ? 'nowrap' : 'wrap'}`,
+      width:`${w}`,
       justifyContent:`${jc}`,
       alignItems:`${ai}`,
-      width:`${w}`,
+      flexWrap:'nowrap' || fw,
     }}>
       {children}
     </div>

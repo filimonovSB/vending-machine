@@ -5,7 +5,7 @@
     "quotes": ["error", "single"], // одиночные кавычки для js
     "jsx-quotes": ["error", "prefer-double"], // двойные кавычки для jsx
     "prefer-const": "error", // Предпочтение в использовании констант
-    "indent": ["error", 2], // отступы 2 пробела
+    "indent": ["warn", 2], // отступы 2 пробела
     "max-len": ["error", { "code": 120 }], //макс длина в строку 120 символов
     "comma-dangle": ["error", "always-multiline"], // запятая для последнего поля в объекте
     "semi": ["warn", "never"], // точка с запятой  
