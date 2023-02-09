@@ -11,39 +11,39 @@ import sprite from '../../assets/products-images/sprite.png'
 import redBul from '../../assets/products-images/red_bul.png'
 import tea from '../../assets/products-images/tea.png'
 import empty from '../../assets/products-images/void.png'
-import { product } from '../../../App'
+
+import { IProduct } from '../../../data/data'
 
 
 const imagesProducts = new Map([
-    [1,cola],
-    [2,bounty],
-    [3,water],
-    [4,monster],
-    [5,kvas],
-    [6,protein],
-    [7,sprite],
-    [8,redBul],
-    [9,tea],
+  [1,cola],
+  [2,bounty],
+  [3,water],
+  [4,monster],
+  [5,kvas],
+  [6,protein],
+  [7,sprite],
+  [8,redBul],
+  [9,tea],
 ])
 
 
-const Product:FC<product> = ({id,name, price, amount}) => {
+const Product:FC<IProduct> = ({id,name, price, amount}) => {
   if ( amount >0)
     return (
-        <StyledProduct>
+      <StyledProduct>
         <img src={imagesProducts.get(id)} alt="" />
         <Price>Цена:{price}</Price>
         <div className="">{id}</div>
         <Amount  >{amount}</Amount>
-        </StyledProduct>
+      </StyledProduct>
     )
   else
-  return (
-    <StyledProduct>
-    <img src={empty} alt="" />
-     
-    </StyledProduct>
-)
+    return (
+      <StyledProduct>
+        <img src={empty} alt="" /> 
+      </StyledProduct>
+    )
 }
 
 export default Product
