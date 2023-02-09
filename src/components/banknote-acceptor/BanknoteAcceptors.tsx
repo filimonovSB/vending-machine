@@ -3,8 +3,8 @@ import styled from 'styled-components'
 
 interface PropsBanknoteAcceptors extends PropsWithChildren{
     draggable?:boolean,
-    onDragOver?:(e:any)=>void
-    onDrop?:(e:any)=>void,
+    onDragOver?:(e: React.DragEvent<HTMLDivElement>)=>void
+    onDrop?:(e: React.DragEvent<HTMLDivElement>)=>void,
 }
 
 const BanknoteAcceptors:FC<PropsBanknoteAcceptors> = (props) => {

@@ -9,15 +9,15 @@ import Button from '../UI/Button'
 import { IMoney, IProduct } from '../../data/data'
 
 interface PropsPanelControls{
-    currentBanknoteChange:any
-    depositedMoney:any,
+    currentBanknoteChange:IMoney,
+    depositedMoney:number,
     products:Array<IProduct>
-    byeProductHandler:(id: any)=>void,
-    setDepositedMoney:(a:any)=> void,
+    byeProductHandler:(id: number)=>void,
+    setDepositedMoney:(money:number)=> void,
     changeBanknotes:Array<IMoney>,
  
-    dragStartChangeHandler:(e:any,c:any)=>void,
-    setChangeBanknotes:(a:any)=> void,
+    dragStartChangeHandler:(e: React.DragEvent<HTMLDivElement>,money:IMoney)=>void,
+    setChangeBanknotes:(changeBanknotes:Array<IMoney>)=> void,
 }
  
 const PanelControls:FC<PropsPanelControls> = (

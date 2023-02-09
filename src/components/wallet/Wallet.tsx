@@ -60,5 +60,5 @@ export default Wallet
 const StyletWallet = styled.div`
     border: 2px solid black;
     width: 800px;
-    background-color: #891000;
+    background-color: #A3706A;
 `

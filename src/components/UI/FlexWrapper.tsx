@@ -4,7 +4,7 @@ interface IFlexProps extends PropsWithChildren{
     w?:string,
     jc?:string,
     ai?:string,
-    fw?:any,
+    fw?:string,
 }
 
 const FlexWrapper:FC<IFlexProps> = ({children, w='100%', jc='stretch', fw='nowrap' , ai='normal'}) => {
