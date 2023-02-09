@@ -3,14 +3,10 @@ import styled from 'styled-components'
 
 import Product from './product/Product'
 
-import { product } from '../../App'
-
-
-
-
+import { IProduct } from '../../data/data'
 
 interface ProductsProps{
-  products: Array<product>
+  products: Array<IProduct>
 }
 
 const Products:FC<ProductsProps> = ({products}) => {
