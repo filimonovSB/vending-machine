@@ -102,5 +102,4 @@ const StyledPanelControls = styled.div`
   width:450px;
   background-color: #D9D9D9;
   padding:15px;
-
 `
