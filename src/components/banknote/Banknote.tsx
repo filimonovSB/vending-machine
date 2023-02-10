@@ -5,17 +5,18 @@ import rub100 from '../assets/banknotes/100rub.png'
 import rub1000 from '../assets/banknotes/1000rub.png'
 import rub50 from '../assets/banknotes/50rub.png'
 import rub500 from '../assets/banknotes/500rub.png'
+import { IMoney } from '../../data/data'
 
 
 interface PropsBanknote extends PropsWithChildren {
     draggable?:boolean,
-    onDragOver?:(e:any)=>void,
-    onDragStart?:(e:any, moneys?:any, money?:any) => void ,
-    onDragLeave?:(e:any) => void,
-    onDragEnd?:(e:any) => void,
+    onDragOver?:(e: React.DragEvent<HTMLDivElement>)=>void,
+    onDragStart?:(e: React.DragEvent<HTMLDivElement>, moneys?:Array<IMoney>, money?:IMoney) => void ,
+    onDragLeave?:(e: React.DragEvent<HTMLDivElement>) => void,
+    onDragEnd?:(e: React.DragEvent<HTMLDivElement>) => void,
     
 }
-const selectimage = (number:any) =>{
+const selectimage = (number:React.ReactNode) =>{
   switch(number) {
   case 50:
     return rub50
