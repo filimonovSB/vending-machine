@@ -29,28 +29,26 @@ const Box:FC<IBoxProps> = ({
   pl = 0,
   w = '100%',
   children,
+}) => {
 
-  }) => {
-
- 
   return (
     <div
-    style={{
-      margin: `${m}px`,
-      marginTop: `${mt}px`,
-      marginRight: `${mr}px`,
-      marginBottom: `${mb}px`,
-      marginLeft: `${ml}px`,
-      padding: `${p}px`,
-      paddingTop: `${pt}px`,
-      paddingRight: `${pr}px`,
-      paddingBottom: `${pb}px`,
-      paddingLeft: `${pl}px`,
-      width:`${w}`,
-    }}
-  >
-    {children}
-  </div>
+      style={{
+        margin: `${m}px`,
+        marginTop: `${mt}px`,
+        marginRight: `${mr}px`,
+        marginBottom: `${mb}px`,
+        marginLeft: `${ml}px`,
+        padding: `${p}px`,
+        paddingTop: `${pt}px`,
+        paddingRight: `${pr}px`,
+        paddingBottom: `${pb}px`,
+        paddingLeft: `${pl}px`,
+        width:`${w}`,
+      }}
+    >
+      {children}
+    </div>
   )
 }
 

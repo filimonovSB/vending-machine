@@ -12,25 +12,23 @@ interface PropsPanelControls{
     currentBanknoteChange:IMoney,
     depositedMoney:number,
     products:Array<IProduct>
+    changeBanknotes:Array<IMoney>,
     byeProductHandler:(id: number)=>void,
     setDepositedMoney:(money:number)=> void,
-    changeBanknotes:Array<IMoney>,
- 
     dragStartChangeHandler:(e: React.DragEvent<HTMLDivElement>,money:IMoney)=>void,
     setChangeBanknotes:(changeBanknotes:Array<IMoney>)=> void,
 }
  
-const PanelControls:FC<PropsPanelControls> = (
-  {
-    currentBanknoteChange,
-    depositedMoney,
-    products,
-    byeProductHandler,
-    setDepositedMoney,
-    changeBanknotes,
-    setChangeBanknotes,
-    dragStartChangeHandler,
-  }
+const PanelControls:FC<PropsPanelControls> = ({
+  currentBanknoteChange,
+  depositedMoney,
+  products,
+  changeBanknotes,
+  byeProductHandler,
+  setDepositedMoney,
+  setChangeBanknotes,
+  dragStartChangeHandler,
+}
 ) => {
   const dragOverChangeHandler = (e: React.DragEvent<HTMLDivElement>): void => {
     e.preventDefault() 
@@ -82,12 +80,12 @@ const PanelControls:FC<PropsPanelControls> = (
         <BanknoteAcceptors>
           {changeBanknotes.map(c=>
             <Banknote
+              bg={c.cost}
               key={c.id}
               draggable={true}
               onDragOver={(e) => dragOverChangeHandler(e)}
               onDragStart={(e) => dragStartChangeHandler(e,c )}
             >
-              {c.cost}
             </Banknote>
           )}
         </BanknoteAcceptors>

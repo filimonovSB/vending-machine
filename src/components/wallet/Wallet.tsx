@@ -41,13 +41,14 @@ const Wallet:FC<WalletProps> = ({handleSetCurrentMoney,deleteCupur,currentMoneyC
       <FlexWrapper jc="space-between" fw="wrap" > 
         {moneys.map(money=>
           <Banknote
+            bg={money.cost}
             key={money.id}
             draggable={true}
             onDragOver={(e) => dragOverHandler(e)}
             onDragStart={(e) => dragStartHandler(e, moneys,money)}
             onDragEnd={(e) => dragEndHandler(e)}
           >
-            {money.cost}
+            
           </Banknote>
         )}
       </FlexWrapper>

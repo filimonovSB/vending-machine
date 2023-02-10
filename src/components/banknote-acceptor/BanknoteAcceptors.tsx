@@ -1,20 +1,6 @@
 import React, { FC, PropsWithChildren } from 'react'
 import styled from 'styled-components'
 
-interface PropsBanknoteAcceptors extends PropsWithChildren{
-    draggable?:boolean,
-    onDragOver?:(e: React.DragEvent<HTMLDivElement>)=>void
-    onDrop?:(e: React.DragEvent<HTMLDivElement>)=>void,
-}
-
-const BanknoteAcceptors:FC<PropsBanknoteAcceptors> = (props) => {
-  return (
-    <BanknoteAcceptor {...props}>{props.children}</BanknoteAcceptor>
-  )
-}
-
-export default BanknoteAcceptors
-
 const BanknoteAcceptor = styled.div`
   display:flex;
   justify-content: space-between;
@@ -25,3 +11,4 @@ const BanknoteAcceptor = styled.div`
   background-color: #fff;
   border: 5px solid black;
 `
+export default BanknoteAcceptor
