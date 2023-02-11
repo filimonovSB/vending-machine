@@ -3,29 +3,36 @@ import styled from 'styled-components'
 
 import Product from './product/Product'
 
-import { IProduct } from '../../data/data'
+import { IProduct } from '../../types'
 
-interface ProductsProps{
-  products: Array<IProduct>
+type Props = {
+  products: IProduct[]
 }
 
-const Products:FC<ProductsProps> = ({products}) => {
+const Products: FC<Props> = ({ products }) => {
   return (
     <ProductsStyled>
-      {products.map(product=>
-        <Product id={product.id} name={product.name} price={product.price} amount={product.amount} key={product.name}/>
+      {products.map(product =>
+        <Product 
+          id={product.id} 
+          name={product.name} 
+          price={product.price} 
+          amount={product.amount} 
+          key={product.name}
+        />
       )}
     </ProductsStyled>
   )
 }
 
-export default Products
 const ProductsStyled = styled.div`
   display: grid;
-  width:100%;
   grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  height: 90vh;
   padding: 15px;
   border: 10px solid #000000;
   background-color: white;
-  height: 90vh;
 `
+
+export default Products

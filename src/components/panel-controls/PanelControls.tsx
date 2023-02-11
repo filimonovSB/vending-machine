@@ -1,90 +1,111 @@
 import React, { FC, useState } from 'react'
 import styled from 'styled-components'
+import { v4, parse} from 'uuid'
 
-import Box from '../UI/Box'
-import BanknoteAcceptors from '../banknote-acceptor/BanknoteAcceptors'
+import Box from '../base/Box'
+import BanknoteAcceptors from '../banknote-acceptor/BanknoteAcceptor'
 import ProductsButtons from '../products-buttons/ProductsButtons'
 import Banknote from '../banknote/Banknote'
-import Button from '../UI/Button'
-import { IMoney, IProduct } from '../../data/data'
+import Button from '../base/Button'
+import { IMoney, IProduct } from '../../types'
+import { nominal } from '../../mocks'
 
-interface PropsPanelControls{
-    currentBanknoteChange:IMoney,
-    depositedMoney:number,
-    products:Array<IProduct>
-    changeBanknotes:Array<IMoney>,
-    byeProductHandler:(id: number)=>void,
-    setDepositedMoney:(money:number)=> void,
-    dragStartChangeHandler:(e: React.DragEvent<HTMLDivElement>,money:IMoney)=>void,
-    setChangeBanknotes:(changeBanknotes:Array<IMoney>)=> void,
+type Props = {
+  currentBanknoteChange: IMoney
+  depositedMoney: number
+  products: IProduct[]
+  changeBanknotes: IMoney[]
+  setProducts:(products:IProduct[]) => void
+  buyProductHandler: (id: number) => void
+  setDepositedMoney: (money: number) => void
+  dragStartChangeHandler:(e: React.DragEvent<HTMLDivElement>, money: IMoney) => void
+  setChangeBanknotes:(changeBanknotes: IMoney[]) => void
 }
  
-const PanelControls:FC<PropsPanelControls> = ({
+const PanelControls:FC<Props> = ({
   currentBanknoteChange,
   depositedMoney,
   products,
   changeBanknotes,
-  byeProductHandler,
+  setProducts,
+  buyProductHandler,
   setDepositedMoney,
   setChangeBanknotes,
   dragStartChangeHandler,
 }
 ) => {
-  const dragOverChangeHandler = (e: React.DragEvent<HTMLDivElement>): void => {
+  const dragOverChangeHandler = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault() 
   }
-  const dragOverHandle=(e: React.DragEvent<HTMLDivElement>):void => {
+  const dragOverHandle = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault() 
   }
-  const dropHandler = (e: React.DragEvent<HTMLDivElement> ):void => {
+  const dropHandler = (e: React.DragEvent<HTMLDivElement> ) => {
     e.preventDefault()
-    setDepositedMoney(currentBanknoteChange.cost+depositedMoney) 
+    setDepositedMoney(currentBanknoteChange.cost + depositedMoney) 
   }
-  const getСhangeHandler=()=>{
-    setDepositedMoney(0)
-    const tempArray = [1000,500,100,50]
-    const result = []
+
+  const getСhangeHandler = () => {
     let moneyTemp = depositedMoney
-    while (moneyTemp>0){
-      for( let i=0; i<tempArray.length; i++)
-      {
-        if (moneyTemp>= tempArray[i])
-        {
-          result.push(tempArray[i])
-          moneyTemp -=tempArray[i]
+    const result = []
+    while (moneyTemp > 0) {
+      for (let i = 0; i < nominal.length; i++) {
+        if (moneyTemp >= nominal[i]) {
+          result.push(nominal[i])
+          moneyTemp -= nominal[i]
           break
         }
       }
-      if (moneyTemp<50) break
+      if (moneyTemp < 50) break
+    }
+    while (moneyTemp > 0) {
+      setProducts(products.map(product =>{
+        if ( product.amount > 0 && moneyTemp >= product.price)
+        {
+          moneyTemp-= product.price
+          return { ...product, amount: product.amount - 1 }
+        }
+        return product
+
+      } ))
     }
     setDepositedMoney(0)
-    let i = 1
-    setChangeBanknotes(result.map(r=> ({id:i++,cost:r})))
+    let i = 0
+    setChangeBanknotes(result.map(r => ({ id:parse(v4())[i++], cost: r })))
   }
   
   return (
     <StyledPanelControls>
-      <Box mb={30} mt={20} >
+      <Box mb={30} mt={20}>
         <h3>Введите купюру</h3>
         <BanknoteAcceptors
           draggable={true}
-          onDragOver={(e) => dragOverHandle(e)}
-          onDrop={(e) => dropHandler(e)}>               
+          onDragOver={dragOverHandle}
+          onDrop={dropHandler}>               
         </BanknoteAcceptors>
         <h4>Вы ввели сумму: {depositedMoney}</h4>
       </Box>
-      <ProductsButtons products={products} handleByeProduct={byeProductHandler}/>
+      <ProductsButtons 
+        products={products} 
+        buyProductHandler={buyProductHandler}
+      />
       <Box mb={30} mt={30}>
         <h3>сдача</h3>
-        <Button padding={5} bg="orange" onClick={getСhangeHandler}>Получить сдачу</Button>
+        <Button 
+          padding={5} 
+          bg="orange" 
+          onClick={getСhangeHandler}
+        >
+          Получить сдачу
+        </Button>
         <BanknoteAcceptors>
-          {changeBanknotes.map(c=>
+          {changeBanknotes.map(banknote=>
             <Banknote
-              bg={c.cost}
-              key={c.id}
+              bg={banknote.cost}
+              key={banknote.id}
               draggable={true}
-              onDragOver={(e) => dragOverChangeHandler(e)}
-              onDragStart={(e) => dragStartChangeHandler(e,c )}
+              onDragOver={dragOverChangeHandler}
+              onDragStart={(e) => dragStartChangeHandler(e, banknote)}
             >
             </Banknote>
           )}
@@ -94,11 +115,10 @@ const PanelControls:FC<PropsPanelControls> = ({
   )
 }
 
-export default PanelControls
-
 const StyledPanelControls = styled.div`
-  width:450px;
+  width: 450px;
+  padding: 15px;
   background-color: #D9D9D9;
-  padding:15px;
-
 `
+
+export default PanelControls

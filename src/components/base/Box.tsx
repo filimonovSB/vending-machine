@@ -1,22 +1,20 @@
-import styled from 'styled-components'
+import { FC, PropsWithChildren } from 'react'
 
-import React, { FC, PropsWithChildren } from 'react'
+type Props = { 
+  m?: number,
+  mt?: number,
+  mr?: number,
+  mb?: number,
+  ml?: number,
+  p?: number,
+  pt?: number,
+  pr?: number,
+  pb?: number,
+  pl?: number,
+  w?: number,
+} & PropsWithChildren
 
-interface IBoxProps extends PropsWithChildren{
-  m?:number,
-  mt?:number,
-  mr?:number,
-  mb?:number,
-  ml?:number,
-  p?:number,
-  pt?:number,
-  pr?:number,
-  pb?:number,
-  pl?:number,
-  w?:number,
-}
-
-const Box:FC<IBoxProps> = ({
+const Box: FC<Props> = ({
   m = 0,
   mt = 0,
   mr = 0,
@@ -30,7 +28,6 @@ const Box:FC<IBoxProps> = ({
   w = '100%',
   children,
 }) => {
-
   return (
     <div
       style={{
@@ -44,15 +41,13 @@ const Box:FC<IBoxProps> = ({
         paddingRight: `${pr}px`,
         paddingBottom: `${pb}px`,
         paddingLeft: `${pl}px`,
-        width:`${w}`,
+        width: `${w}`,
       }}
     >
       {children}
     </div>
   )
 }
-
- 
 
 export default Box
  
